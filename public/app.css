@@ -1,0 +1,15 @@
+.container{
+   
+    margin: 1 rem auto;
+    display:inline-flexbox
+   
+
+}
+.container img{
+    max-width: 250px;
+    height: 200px;
+}
+.container p{
+    max-width: 350px;
+}
+

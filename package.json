@@ -2,6 +2,8 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.0.12",
     "nodemon": "^2.0.15"
   },
   "name": "ecommercewebsite",
@@ -9,7 +11,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./index.js"
   },
   "keywords": [],
   "author": "",
