@@ -3,9 +3,13 @@ const app = express();
 const mongoose = require('mongoose');
 const path  = require('path')
 //const seedDB = require('./seed')
-const booksRoutes = require('./routes/index')
+const productsRoutes = require('./routes/products')
 const methodOverride = require('method-override')
 const Review = require('./models/review')
+var session = require('express-session')
+var flash = require('connect-flash');
+
+
     
 
 mongoose.connect('mongodb://localhost:27017/EcommerceWebApp')
@@ -24,10 +28,32 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 //seedDB();
-app.use(booksRoutes);
+app.use(productsRoutes);
+app.use(session({
+    secret: 'ecommercewebsite',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  }))
 
+app.use(flash());
+// app.use((req,res,next)=>{
+//     res.locals.success = req.flash('success');
+//     next();
+// })
 
+app.get('/',(req,res)=>{
+if(req.session.pagecount){
+    req.session.pagecount+=1;
+    console.log('update')
+}
+else{
+    req.session.pagecount =1;
+    console.log('intialize')
+}
+res.send(`hit pages ${req.session.pagecount}times` )
 
+})
 
 app.listen(3000,()=>{
     console.log("server start at port 3000")
