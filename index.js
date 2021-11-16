@@ -6,8 +6,8 @@ const path  = require('path')
 const productsRoutes = require('./routes/products')
 const methodOverride = require('method-override')
 const Review = require('./models/review')
-var session = require('express-session')
-var flash = require('connect-flash');
+const  session = require('express-session')
+const flash = require('connect-flash');
 
 
     
@@ -30,31 +30,22 @@ app.use(methodOverride('_method'))
 //seedDB();
 app.use(productsRoutes);
 app.use(session({
-    secret: 'ecommercewebsite',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+  secret: 'ecommerce webapp',
+  resave: false,
+  saveUninitialized: true,
   }))
-
 app.use(flash());
-// app.use((req,res,next)=>{
-//     res.locals.success = req.flash('success');
-//     next();
-// })
-
-app.get('/',(req,res)=>{
-if(req.session.pagecount){
-    req.session.pagecount+=1;
-    console.log('update')
-}
-else{
-    req.session.pagecount =1;
-    console.log('intialize')
-}
-res.send(`hit pages ${req.session.pagecount}times` )
-
+app.use((req,res,next)=>{
+  res.locals.success = req.flash('success')
+  next();
 })
 
+app.get('/',(req,res)=>{
+   req.session.pagecount += 1;
+   res.send(`page hits ${req.session.pagecount} times`)
+
+
+})  
 app.listen(3000,()=>{
     console.log("server start at port 3000")
 })

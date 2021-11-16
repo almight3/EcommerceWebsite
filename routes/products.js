@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const Products = require('../models/product.js')
 const Review = require('../models/review')
-var flash = require('connect-flash');
+const  session = require('express-session')
 
 
 // fetching products from DB and render on /products route
@@ -13,7 +13,7 @@ res.render('products/index',{products})
 
 
 // this route take to creat new product page on route /product/new
-router.get('/products/new',(req,res)=>{
+   router.get('/products/new',(req,res)=>{
     res.render('products/new')
 })
 
@@ -21,7 +21,7 @@ router.get('/products/new',(req,res)=>{
 router.post('/products',async(req,res)=>{
      await Products.create(req.body.product)
      req.flash('success','product created succesfully');
-     res.redirect('/products',{msg:req.flash('success')})
+     res.redirect('/products')
 
 })
 
