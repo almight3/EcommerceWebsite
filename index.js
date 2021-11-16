@@ -5,7 +5,8 @@ const path  = require('path')
 //const seedDB = require('./seed')
 const booksRoutes = require('./routes/index')
 const methodOverride = require('method-override')
-
+const Review = require('./models/review')
+    
 
 mongoose.connect('mongodb://localhost:27017/EcommerceWebApp')
 .then(()=>{

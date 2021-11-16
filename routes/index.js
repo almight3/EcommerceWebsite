@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const Products = require('../models/product.js')
+const Review = require('../models/review')
 
 // fetching products from DB and render on /products route
 router.get('/products',async (req,res)=>{
@@ -25,7 +26,7 @@ router.post('/products',async(req,res)=>{
 // gives complete detail of products
 router.get('/products/:id',async(req,res)=>{
      const {id} = req.params;
-     const product = await Products.findById(id);
+     const product = await (await Products.findById(id)).populate('review')
      res.render('products/show',{product}) 
 })
 // this route take us to edit page for product
@@ -46,7 +47,22 @@ router.delete('/product/:id', async(req,res)=>{
 })
 
 
+// creating review route to add review and rating
 
+router.post('/products/:id/review',async (req,res)=>{
+    const {id} = req.params;
+    const product = await Products.findById(id);
+    const review = new Review(req.body);
+    await product.review.push(review);
+    await product.save();
+    await review.save();
+   
+    res.redirect(`/products/${id}`)
+
+
+})
+
+ 
 
 
 

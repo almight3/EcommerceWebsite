@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Review = require('./review')
 // creating product schema
 const productSchema = new mongoose.Schema({
     name :{
@@ -17,7 +17,16 @@ const productSchema = new mongoose.Schema({
     desc:{
         type:String,
         required:true
-    }
+    },
+    
+    // creating review  document where in array taking ObjId as input which had refence of Review Model
+    review:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+        
+    ]
 })
 
 const Product = mongoose.model('Product',productSchema)
