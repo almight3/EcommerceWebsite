@@ -46,11 +46,13 @@ res.render('products/edit',{product})
 // 
 router.patch('/products/:id',async (req,res)=>{
     const {id} = req.params;
-    console.log(req.params)
-    // await Products.findByIdAndUpdate({id:req.body.products});
-    res.redirect('/products/:id/edit')
+    console.log(req.body.product)
+    // console.log(req.params)
+    const product = req.body.product
+ await Products.findByIdAndUpdate(id,product);
+    res.redirect(`/products/${id}/edit`)
 })
-//
+
 router.delete('/product/:id', async(req,res)=>{
     const {id} = req.params;
     await Products.findByIdAndDelete(id);
