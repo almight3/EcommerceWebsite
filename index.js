@@ -30,11 +30,11 @@ app.use(methodOverride('_method'))
 //seedDB();
 app.use(productsRoutes);
 app.use(session({
-  secret: 'ecommerce webapp',
+  secret: 'ecommercewebapp',
   resave: false,
   saveUninitialized: true,
   }))
-app.use(flash());
+app.use(flash());  
 app.use((req,res,next)=>{
   res.locals.success = req.flash('success')
   next();
