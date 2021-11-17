@@ -21,6 +21,15 @@ mongoose.connect('mongodb://localhost:27017/EcommerceWebApp')
     console.log(err)
 })
 
+
+app.use(session({
+  secret: 'ecommercewebapp',
+  resave: false,
+  saveUninitialized: true,
+  }))
+  app.use(flash());  
+
+
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'/views'))
 app.use(express.static(path.join(__dirname,'/public')))
@@ -28,24 +37,19 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 //seedDB();
-app.use(productsRoutes);
-app.use(session({
-  secret: 'ecommercewebapp',
-  resave: false,
-  saveUninitialized: true,
-  }))
-app.use(flash());  
+
 app.use((req,res,next)=>{
   res.locals.success = req.flash('success')
   next();
-})
+}) 
+app.use(productsRoutes);
 
 app.get('/',(req,res)=>{
    req.session.pagecount += 1;
-   res.send(`page hits ${req.session.pagecount} times`)
 
-
+   res.send(`page hits ${req.session.pagecount} times `)
+  
 })  
 app.listen(3000,()=>{
-    console.log("server start at port 3000")
+  console.log("server start at port 3000")
 })

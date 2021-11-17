@@ -20,7 +20,7 @@ res.render('products/index',{products})
 // post request create new product
      router.post('/products',async(req,res)=>{
      await Products.create(req.body.product)
-     req.flash('success','product created succesfully');
+     req.flash('success', 'product created succesfully');
      res.redirect('/products')
 
 })
@@ -49,7 +49,8 @@ router.patch('/products/:id',async (req,res)=>{
     console.log(req.body.product)
     // console.log(req.params)
     const product = req.body.product
- await Products.findByIdAndUpdate(id,product);
+    await Products.findByIdAndUpdate(id,product);
+    req.flash('success','product updated successfully')
     res.redirect(`/products/${id}/edit`)
 })
 
