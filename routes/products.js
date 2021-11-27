@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const Products = require('../models/product.js')
 const Review = require('../models/review')
-const  session = require('express-session')
+
 
 
 // fetching products from DB and render on /products route
